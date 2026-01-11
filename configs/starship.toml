@@ -1,0 +1,67 @@
+# Starship Configuration
+# https://starship.rs/config/
+
+# Timeout for commands
+command_timeout = 1000
+
+# Add newline between prompts
+add_newline = true
+
+# Prompt format
+format = """
+$username\
+$hostname\
+$directory\
+$git_branch\
+$git_status\
+$python\
+$nodejs\
+$rust\
+$golang\
+$docker_context\
+$cmd_duration\
+$line_break\
+$character"""
+
+[character]
+success_symbol = "[](bold green)"
+error_symbol = "[](bold red)"
+
+[directory]
+truncation_length = 4
+truncate_to_repo = true
+style = "bold cyan"
+
+[git_branch]
+symbol = " "
+style = "bold purple"
+
+[git_status]
+style = "bold yellow"
+format = '([$all_status$ahead_behind]($style) )'
+
+[python]
+symbol = " "
+style = "bold yellow"
+format = '[${symbol}${pyenv_prefix}(${version} )(\($virtualenv\) )]($style)'
+
+[nodejs]
+symbol = " "
+style = "bold green"
+format = '[$symbol($version )]($style)'
+
+[rust]
+symbol = " "
+style = "bold red"
+
+[golang]
+symbol = " "
+style = "bold blue"
+
+[docker_context]
+symbol = " "
+style = "bold blue"
+
+[cmd_duration]
+min_time = 2000
+format = "took [$duration](bold yellow) "

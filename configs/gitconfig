@@ -1,0 +1,50 @@
+# Git Configuration Template
+# This file is for reference - git config is set via commands in 03-dev-tools.sh
+
+[user]
+    name = qwerkek
+    email = qwerkek@users.noreply.github.com
+
+[init]
+    defaultBranch = main
+
+[core]
+    editor = nvim
+    autocrlf = input
+    excludesfile = ~/.gitignore_global
+    pager = delta
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    navigate = true
+    side-by-side = true
+    line-numbers = true
+
+[merge]
+    conflictstyle = diff3
+
+[diff]
+    colorMoved = default
+
+[pull]
+    rebase = true
+
+[push]
+    default = current
+    autoSetupRemote = true
+
+[alias]
+    st = status
+    co = checkout
+    br = branch
+    ci = commit
+    lg = log --oneline --graph --decorate
+    last = log -1 HEAD
+    unstage = reset HEAD --
+    amend = commit --amend --no-edit
+    aliases = config --get-regexp alias
+
+[color]
+    ui = auto
