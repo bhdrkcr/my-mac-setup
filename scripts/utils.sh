@@ -77,6 +77,18 @@ cask_install() {
     fi
 }
 
+# Install global npm package if not installed
+npm_install() {
+    local package="$1"
+    if npm list -g "$package" --depth=0 &> /dev/null; then
+        print_info "npm package $package is already installed"
+    else
+        print_info "Installing npm package $package..."
+        npm install -g "$package"
+        print_success "$package installed"
+    fi
+}
+
 # Backup a file before modifying
 backup_file() {
     local file="$1"
@@ -91,6 +103,10 @@ add_line_to_file() {
     local line="$1"
     local file="$2"
     if ! grep -qF "$line" "$file" 2>/dev/null; then
+        # Ensure newline before appending if file is not empty
+        if [[ -s "$file" && "$(tail -c 1 "$file")" != "" ]]; then
+            echo "" >> "$file"
+        fi
         echo "$line" >> "$file"
         return 0
     fi
@@ -112,8 +128,18 @@ add_block_to_file() {
         perl -i -p0e "s/\n*# >>> $marker >>>.*?# <<< $marker <<<\n*//s" "$file"
     fi
 
+    # Ensure newline before appending if file is not empty and doesn't end with one
+    if [[ -s "$file" ]]; then
+         # Check if the last character is a newline (this is a bit tricky in portable bash)
+         # Using a simple heuristic: echo >> file ensures a newline if we just append
+         # But we want to avoid double newlines if possible.
+         # A safer bet: check if the file ends with the start marker (unlikely) or just append a newline if needed
+         if [[ "$(tail -c 1 "$file")" != "" ]]; then
+             echo "" >> "$file"
+         fi
+    fi
+
     # Add new block
-    echo "" >> "$file"
     echo "$start_marker" >> "$file"
     echo "$content" >> "$file"
     echo "$end_marker" >> "$file"

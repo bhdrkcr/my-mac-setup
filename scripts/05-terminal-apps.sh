@@ -1,7 +1,15 @@
 #!/bin/bash
-# Install terminal applications: Neovim, tmux
+# Install terminal applications: Ghostty, Neovim, tmux
 
 print_section "Terminal Applications"
+
+# Configure Ghostty
+GHOSTTY_CONFIG_DIR="$HOME/.config/ghostty"
+mkdir -p "$GHOSTTY_CONFIG_DIR"
+
+backup_file "$GHOSTTY_CONFIG_DIR/config"
+cp "$SCRIPT_DIR/configs/ghostty/config" "$GHOSTTY_CONFIG_DIR/config"
+print_success "Ghostty configuration installed"
 
 # Neovim
 brew_install neovim
@@ -22,20 +30,14 @@ fi
 NVIM_CONFIG_DIR="$HOME/.config/nvim"
 mkdir -p "$NVIM_CONFIG_DIR"
 
-if [[ ! -f "$NVIM_CONFIG_DIR/init.lua" ]] || [[ "$FORCE_CONFIG" == "1" ]]; then
-    cp "$SCRIPT_DIR/configs/nvim/init.lua" "$NVIM_CONFIG_DIR/init.lua"
-    print_success "Neovim configuration installed"
-else
-    print_info "Neovim config already exists, skipping (set FORCE_CONFIG=1 to overwrite)"
-fi
+backup_file "$NVIM_CONFIG_DIR/init.lua"
+cp "$SCRIPT_DIR/configs/nvim/init.lua" "$NVIM_CONFIG_DIR/init.lua"
+print_success "Neovim configuration installed"
 
 # Configure tmux
-if [[ ! -f "$HOME/.tmux.conf" ]] || [[ "$FORCE_CONFIG" == "1" ]]; then
-    cp "$SCRIPT_DIR/configs/tmux.conf" "$HOME/.tmux.conf"
-    print_success "tmux configuration installed"
-else
-    print_info "tmux config already exists, skipping (set FORCE_CONFIG=1 to overwrite)"
-fi
+backup_file "$HOME/.tmux.conf"
+cp "$SCRIPT_DIR/configs/tmux.conf" "$HOME/.tmux.conf"
+print_success "tmux configuration installed"
 
 # Set Neovim as default editor
 EDITOR_CONFIG='export EDITOR="nvim"

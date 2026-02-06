@@ -1,14 +1,12 @@
 # Brewfile - Declarative Homebrew dependencies
 # Install with: brew bundle install
 
-# Taps
-tap "homebrew/cask-fonts"
-
 # ============================================================================
 # Core Development Tools
 # ============================================================================
 
 brew "git"
+brew "gh"
 brew "pyenv"
 brew "pyenv-virtualenv"
 brew "nvm"
@@ -23,6 +21,8 @@ brew "zsh-completions"
 brew "starship"
 brew "tmux"
 brew "neovim"
+
+cask "ghostty"
 
 # ============================================================================
 # Modern CLI Tools

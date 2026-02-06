@@ -27,3 +27,21 @@ eval "$($HOMEBREW_PREFIX/bin/brew shellenv)"
 # Disable analytics (optional)
 brew analytics off
 print_info "Homebrew analytics disabled"
+
+# Install dependencies from Brewfile
+BREWFILE="$SCRIPT_DIR/Brewfile"
+if [[ -f "$BREWFILE" ]]; then
+    print_section "Installing Dependencies from Brewfile"
+    print_info "Running brew bundle..."
+    # Suppress output for already installed items to keep it clean, unless verbose is needed
+    # Using --no-lock to avoid creating a Brewfile.lock.json if not desired, or just standard install
+    if brew bundle install --file="$BREWFILE" --verbose; then
+        print_success "Brewfile dependencies installed"
+    else
+        print_error "Some Brewfile dependencies failed to install"
+        # Don't exit on error here to allow script to continue with other setups
+    fi
+else
+    print_warning "Brewfile not found at $BREWFILE"
+fi
+

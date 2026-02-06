@@ -33,6 +33,7 @@ INSTALL_SHELL_SETUP=1
 INSTALL_DEV_TOOLS=1
 INSTALL_CLI_TOOLS=1
 INSTALL_TERMINAL_APPS=1
+INSTALL_AI_TOOLS=1
 INSTALL_FONTS=1
 CONFIGURE_MACOS_DEFAULTS=1
 
@@ -51,6 +52,7 @@ echo "The following sections will be installed:"
 [[ $INSTALL_DEV_TOOLS -eq 1 ]] && echo "  - Dev Tools (pyenv, nvm, git)"
 [[ $INSTALL_CLI_TOOLS -eq 1 ]] && echo "  - Modern CLI Tools"
 [[ $INSTALL_TERMINAL_APPS -eq 1 ]] && echo "  - Terminal Apps (Neovim, tmux)"
+[[ $INSTALL_AI_TOOLS -eq 1 ]] && echo "  - AI Tools (Gemini, Claude, Copilot)"
 [[ $INSTALL_FONTS -eq 1 ]] && echo "  - Nerd Fonts"
 [[ $CONFIGURE_MACOS_DEFAULTS -eq 1 ]] && echo "  - macOS Preferences"
 echo ""
@@ -70,6 +72,7 @@ fi
 [[ $INSTALL_DEV_TOOLS -eq 1 ]] && source "$SCRIPT_DIR/scripts/03-dev-tools.sh"
 [[ $INSTALL_CLI_TOOLS -eq 1 ]] && source "$SCRIPT_DIR/scripts/04-cli-tools.sh"
 [[ $INSTALL_TERMINAL_APPS -eq 1 ]] && source "$SCRIPT_DIR/scripts/05-terminal-apps.sh"
+[[ $INSTALL_AI_TOOLS -eq 1 ]] && source "$SCRIPT_DIR/scripts/08-ai-tools.sh"
 [[ $INSTALL_FONTS -eq 1 ]] && source "$SCRIPT_DIR/scripts/06-macos-apps.sh"
 [[ $CONFIGURE_MACOS_DEFAULTS -eq 1 ]] && source "$SCRIPT_DIR/scripts/07-macos-defaults.sh"
 
@@ -83,9 +86,8 @@ echo "Next steps:"
 echo ""
 echo "  1. Restart your terminal (or run: source ~/.zshrc)"
 echo ""
-echo "  2. Set your terminal font to a Nerd Font:"
-echo "     Terminal > Settings > Profiles > Font"
-echo "     Choose: FiraCode Nerd Font or JetBrainsMono Nerd Font"
+echo "  2. Ghostty is pre-configured with JetBrainsMono Nerd Font."
+echo "     Config: ~/.config/ghostty/config"
 echo ""
 echo "  3. Install Python (optional):"
 echo "     pyenv install 3.12"
